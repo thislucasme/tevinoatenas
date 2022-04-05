@@ -1,25 +1,20 @@
 import {
-  Box, Button, ChakraProvider, Grid,
-  Text,
-  Input,
-  theme, VStack, HStack
+  Box, Button, Checkbox, ChakraProvider, HStack, Input, Text, theme, VStack
 } from "@chakra-ui/react"
 import { initializeApp } from 'firebase/app'
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider } from 'firebase/auth'
 import { collection, getDocs, getFirestore } from 'firebase/firestore'
 import * as React from "react"
-import { ColorModeSwitcher } from "./ColorModeSwitcher"
-import { firebaseConfig } from "./firebase/firabse"
-
-import BG from '../src/rsc/BGB.png';
-
-import { GoogleAuthProvider, getAuth, signInWithPopup, signInWithRedirect, createUserWithEmailAndPassword } from 'firebase/auth';
-
 import { FaUserAlt } from 'react-icons/fa'
+import { firebaseConfig } from "../firebase/firabse"
+
+
+
 const provider = new GoogleAuthProvider();
 
 provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 
-export const App = () => {
+export const Cadastro = () => {
 
   const [senha, setSenha] = React.useState('');
 
@@ -62,19 +57,25 @@ export const App = () => {
         <Box borderRadius={10} bg={"#141328"} w={"40%"} h={"400"}>
           <Box borderTopLeftRadius={7} borderTopRightRadius={7} w={"full"} h={2} bg={"#64428b"}></Box>
           <Box mx={20}>
-            <Text margin={5} color={"white"}>CONECTE-SE</Text>
+            <Text margin={5} color={"white"}>CADASTRE-SE</Text>
             <Input value={email} onChange={(e: any) => { setEmail(e.target.value) }} fontSize={"20px"} my={2} color={"white"} borderColor={"gray"} borderRadius={3} borderWidth={0.1} placeholder="Email" />
             <Input value={senha} onChange={(e: any) => { setSenha(e.target.value) }} type={"password"} fontSize={"20px"} my={2} color={"white"} borderColor={"gray"} borderRadius={3} borderWidth={0.1} placeholder="Senha" />
-            <Button onClick={login} colorScheme={"green"} leftIcon={<FaUserAlt />} my={2} width={"full"}>Entrar</Button>
             <HStack>
-              <Text color={"gray"}>Não possui uma conta?</Text>
+              <Checkbox colorScheme='green' color={"gray"} defaultChecked>
+                Li e Aceito todos os termos de uso.
+              </Checkbox>
+            </HStack>
 
-              <Text cursor={"pointer"} color={"#64428b"}>cadastre-se</Text>
+            <Button onClick={login} colorScheme={"green"} leftIcon={<FaUserAlt />} my={2} width={"full"}>Cadastrar</Button>
+            <HStack>
+              <Text color={"gray"}>Já possui uma conta?</Text>
+
+              <Text cursor={"pointer"} color={"#64428b"}>faça login</Text>
             </HStack>
           </Box>
         </Box>
       </VStack>
-    </ChakraProvider>
+    </ChakraProvider >
   );
 }
 
