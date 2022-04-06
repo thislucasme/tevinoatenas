@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { App } from "../App";
+import { Home } from "../pages/Home";
 import { Cadastro } from "../pages/Cadastro";
 
 export const RouteComponets = () => {
@@ -7,12 +8,10 @@ export const RouteComponets = () => {
 		<Routes>
 			<Route path="login" element={<App />} />
 			<Route path="cadastro" element={<Cadastro />} />
-			<Route path="/app" element={<App />}>
-				<Route path="login" element={<App />} />
-				<Route path="cadastro" element={<Cadastro />}>
+			<Route path="app" >
+				<Route path="home" element={<Home />}>
 
 				</Route>
-				<Route path="home" element={<App />} />
 			</Route>
 			<Route index element={<App />} />
 			<Route path={"teste"} element={<App />} />

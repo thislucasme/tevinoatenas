@@ -1,12 +1,15 @@
 import {
-  Box, Button, Checkbox, ChakraProvider, HStack, Input, Text, theme, VStack
+  Box, Button, ChakraProvider, Checkbox, HStack, Input, Text, theme, VStack
 } from "@chakra-ui/react"
+import { showNotification } from "@mantine/notifications"
 import { initializeApp } from 'firebase/app'
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider } from 'firebase/auth'
-import { collection, getDocs, getFirestore } from 'firebase/firestore'
+import { getFirestore } from 'firebase/firestore'
 import * as React from "react"
 import { FaUserAlt } from 'react-icons/fa'
+import { useNavigate } from "react-router-dom"
 import { firebaseConfig } from "../firebase/firabse"
+
 
 
 
@@ -16,6 +19,8 @@ provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 
 export const Cadastro = () => {
 
+  const [loading, setLoading] = React.useState(false);
+
   const [senha, setSenha] = React.useState('');
 
   const [email, setEmail] = React.useState('');
@@ -23,32 +28,38 @@ export const Cadastro = () => {
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
+
   const auth = getAuth();
+  const navigate = useNavigate();
 
 
-
-  async function carregar() {
-    const dados = collection(db, 'mensagens');
-    const dadosSnapshot = await getDocs(dados);
-
-    const listaDados = dadosSnapshot.docs.map(doc => doc.data());
-    console.log(listaDados)
-    return listaDados;
-  }
+  const showMsg = (color: string, msg: string, title: string) =>
+    showNotification({
+      color: color,
+      title: title,
+      message: msg,
+    })
   async function login() {
+
+
+    setLoading(true);
 
     createUserWithEmailAndPassword(auth, email, senha)
       .then((userCredential) => {
+        setLoading(false);
         // Signed in
         const user = userCredential.user;
         console.log(user)
+        showMsg("green", "Usuário criado", "Sucesso ao criar usuário")
       })
       .catch((error) => {
+        setLoading(false);
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage)
+        showMsg("red", "error:" + errorCode, errorMessage)
         // ..
-      });
+      })
   }
 
   return (
@@ -66,11 +77,11 @@ export const Cadastro = () => {
               </Checkbox>
             </HStack>
 
-            <Button onClick={login} colorScheme={"green"} leftIcon={<FaUserAlt />} my={2} width={"full"}>Cadastrar</Button>
+            <Button isLoading={loading} disabled={loading} onClick={login} colorScheme={"green"} leftIcon={<FaUserAlt />} my={2} width={"full"}>Cadastrar</Button>
             <HStack>
               <Text color={"gray"}>Já possui uma conta?</Text>
 
-              <Text cursor={"pointer"} color={"#64428b"}>faça login</Text>
+              <Text onClick={() => { navigate("/") }} cursor={"pointer"} color={"#64428b"}>faça login</Text>
             </HStack>
           </Box>
         </Box>
