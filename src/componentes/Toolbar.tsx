@@ -159,7 +159,7 @@ export const Toolbar = () => {
 		<>
 			<VStack w="100%" bg={"#141328"} position={"fixed"}>
 
-				{/* <Flex w="50%">
+				<Flex w="50%">
 					<Image ml={10} mt={5} w={"40px"} h={"40px"} borderRadius={"100%"} src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80" />
 					<Text cursor={"pointer"} ml={5} mt={5} color={"white"} fontSize={"20px"} onClick={() => { navigate('/app/home') }}>Alugéis</Text>
 					<Text cursor={"pointer"} ml={5} mt={5} color={"white"} fontSize={"20px"} onClick={() => { navigate('/app/services') }}>Serviços</Text>
@@ -169,7 +169,7 @@ export const Toolbar = () => {
 					<Text mr={3} cursor={"pointer"} ml={5} mt={5} color={"white"} fontSize={"20px"}>Lucas silva</Text>
 					<Image cursor={"pointer"} mr={10} mt={5} w={"40px"} h={"40px"} borderRadius={"100%"} src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80" />
 				</Flex>
-				<Box bg={"#1b1c20"} w="100%" h={0.2}></Box> */}
+				<Box bg={"#1b1c20"} w="100%" h={0.2}></Box>
 			</VStack>
 
 
