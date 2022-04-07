@@ -1,26 +1,27 @@
-import { Box, HStack, Image, Text, VStack } from "@chakra-ui/react"
+import { Box, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import { Button } from "@mantine/core";
-import Anonimato from '../rsc/anonimo.png'
-import { AiOutlineLike } from 'react-icons/ai'
-import { FaRegCommentDots } from 'react-icons/fa'
-import { GoReport } from 'react-icons/go'
+import { FaRegCommentDots } from 'react-icons/fa';
+import { GoReport } from 'react-icons/go';
+import Anonimato from '../rsc/anonimo.png';
 
 //VscReport
 
-export const ItemFeed = () => {
+interface Props {
+	post: any
+}
+export const ItemFeed = (props: Props) => {
+
+	console.log(props)
 	return (
-		<VStack my={10}>
-			<HStack alignItems={"start"} w="100%">
+		<VStack my={10} w={"80%"}>
+			<HStack alignItems={"start"} w="50%">
 				<Image p={1} bg={"green"} ml={10} w={"40px"} h={"40px"} borderRadius={"100%"} src={Anonimato} />
 				<Text color="white" fontSize={"18px"}>Usuário anonimo#</Text>
-				<Text pt={1} color="white" fontSize={"12px"}>45 Minutos atrás</Text>
+				<Text pt={1} color="white" fontSize={"12px"}>{"postado em " + new Date(props.post.data.seconds * 1000).getDate() + "/" + new Date(props.post.data.seconds * 1000).getMonth() + " ás " + new Date(props.post.data.seconds * 1000).getHours() + ":" + new Date(props.post.data.seconds * 1000).getMinutes()}</Text>
 			</HStack>
 
-			<Image borderRadius={4} w="80%" src={"https://static-cse.canva.com/blob/759727/ComoTirareEditarSuaFotoparaPerfilemRedesSociaisfeaturedimagee1559023010630.jpg"} />
+			<Image borderRadius={4} src={props.post.url} />
 			<HStack>
-				<Button variant="subtle">
-					<AiOutlineLike />
-				</Button>
 				<Button variant="subtle">
 					<FaRegCommentDots />
 				</Button>

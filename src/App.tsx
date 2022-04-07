@@ -1,15 +1,15 @@
 import {
-  Box, Button, ChakraProvider, HStack, Input, Text, theme, VStack
+  Box, Button, HStack, Input, Text, VStack
 } from "@chakra-ui/react"
+import { showNotification } from "@mantine/notifications"
 import { initializeApp } from 'firebase/app'
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth'
 import { collection, getDocs, getFirestore } from 'firebase/firestore'
 import * as React from "react"
 import { FaUserAlt } from 'react-icons/fa'
+import { useNavigate } from "react-router-dom"
 import { firebaseConfig } from "./firebase/firabse"
 
-import { useNavigate } from "react-router-dom"
-import { showNotification } from "@mantine/notifications"
 
 
 const provider = new GoogleAuthProvider();
@@ -34,7 +34,7 @@ export const App = () => {
     if (user) {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/firebase.User
-      const uid = user.uid;
+      // const uid = user.uid;
 
       navigate('app/home')
 
@@ -47,6 +47,7 @@ export const App = () => {
 
 
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async function carregar() {
     const dados = collection(db, 'mensagens');
     const dadosSnapshot = await getDocs(dados);
@@ -68,7 +69,7 @@ export const App = () => {
     signInWithEmailAndPassword(auth, email, senha)
       .then((userCredential) => {
         // Signed in
-        const user = userCredential.user;
+        // const user = userCredential.user;
         navigate('app/home')
         setLoading(false)
         // ...
@@ -82,22 +83,22 @@ export const App = () => {
   }
 
   return (
-      <VStack minH="100vh" textAlign="center" alignItems={"center"} justifyContent={"center"} fontSize="xl" bg={"#212042"}>
-        <Box borderRadius={10} bg={"#141328"} w={"40%"} h={"400"}>
-          <Box borderTopLeftRadius={7} borderTopRightRadius={7} w={"full"} h={2} bg={"#64428b"}></Box>
-          <Box mx={20}>
-            <Text margin={5} color={"white"}>CONECTE-SE</Text>
-            <Input value={email} onChange={(e: any) => { setEmail(e.target.value) }} fontSize={"20px"} my={2} color={"white"} borderColor={"gray"} borderRadius={3} borderWidth={0.1} placeholder="Email" />
-            <Input value={senha} onChange={(e: any) => { setSenha(e.target.value) }} type={"password"} fontSize={"20px"} my={2} color={"white"} borderColor={"gray"} borderRadius={3} borderWidth={0.1} placeholder="Senha" />
-            <Button isLoading={loading} disabled={loading} onClick={login} colorScheme={"green"} leftIcon={<FaUserAlt />} my={2} width={"full"}>Entrar</Button>
-            <HStack>
-              <Text color={"gray"}>Não possui uma conta?</Text>
+    <VStack minH="100vh" textAlign="center" alignItems={"center"} justifyContent={"center"} fontSize="xl" bg={"#212042"}>
+      <Box borderRadius={10} bg={"#141328"} w={"40%"} h={"400"}>
+        <Box borderTopLeftRadius={7} borderTopRightRadius={7} w={"full"} h={2} bg={"#64428b"}></Box>
+        <Box mx={20}>
+          <Text margin={5} color={"white"}>CONECTE-SE</Text>
+          <Input value={email} onChange={(e: any) => { setEmail(e.target.value) }} fontSize={"20px"} my={2} color={"white"} borderColor={"gray"} borderRadius={3} borderWidth={0.1} placeholder="Email" />
+          <Input value={senha} onChange={(e: any) => { setSenha(e.target.value) }} type={"password"} fontSize={"20px"} my={2} color={"white"} borderColor={"gray"} borderRadius={3} borderWidth={0.1} placeholder="Senha" />
+          <Button isLoading={loading} disabled={loading} onClick={login} colorScheme={"green"} leftIcon={<FaUserAlt />} my={2} width={"full"}>Entrar</Button>
+          <HStack>
+            <Text color={"gray"}>Não possui uma conta?</Text>
 
-              <Text onClick={() => { navigate("cadastro") }} cursor={"pointer"} color={"#64428b"}>cadastre-se</Text>
-            </HStack>
-          </Box>
+            <Text onClick={() => { navigate("cadastro") }} cursor={"pointer"} color={"#64428b"}>cadastre-se</Text>
+          </HStack>
         </Box>
-      </VStack>
+      </Box>
+    </VStack>
   );
 }
 

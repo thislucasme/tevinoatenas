@@ -1,4 +1,4 @@
-import { ChakraProvider, ColorModeScript } from "@chakra-ui/react"
+import { ChakraProvider } from "@chakra-ui/react"
 import { MantineProvider } from "@mantine/core"
 import { NotificationsProvider } from '@mantine/notifications'
 import * as React from "react"

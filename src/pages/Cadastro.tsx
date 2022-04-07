@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Box, Button, ChakraProvider, Checkbox, HStack, Input, Text, theme, VStack
 } from "@chakra-ui/react"
